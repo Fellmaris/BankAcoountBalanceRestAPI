@@ -4,6 +4,7 @@ import com.example.bankaccountbalancerestapi.Currency;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -15,11 +16,13 @@ public class Account {
     private String owner;
     private double balance;
     private Currency currency;
+    private List<Transaction> transactions;
 
-    public Account(String owner, double balance, Currency currency) {
+    public Account(String owner, double balance, Currency currency, List<Transaction> transactions) {
         this.accountNumber = UUID.randomUUID();
         this.owner = owner;
         this.balance = balance;
         this.currency = currency;
+        this.transactions = transactions;
     }
 }
