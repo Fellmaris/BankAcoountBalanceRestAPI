@@ -1,4 +1,4 @@
-package com.example.bankaccountbalancerestapi.entity;
+package com.example.bankaccountbalancerestapi;
 
 public interface Currency {
 
