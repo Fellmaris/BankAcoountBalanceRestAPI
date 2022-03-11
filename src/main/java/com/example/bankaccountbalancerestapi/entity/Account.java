@@ -18,6 +18,14 @@ public class Account {
     private Currency currency;
     private List<Transaction> transactions;
 
+    public Account(UUID accountNumber, String owner, double balance, Currency currency, List<Transaction> transactions) {
+        this.accountNumber = accountNumber;
+        this.owner = owner;
+        this.balance = balance;
+        this.currency = currency;
+        this.transactions = transactions;
+    }
+
     public Account(String owner, double balance, Currency currency, List<Transaction> transactions) {
         this.accountNumber = UUID.randomUUID();
         this.owner = owner;

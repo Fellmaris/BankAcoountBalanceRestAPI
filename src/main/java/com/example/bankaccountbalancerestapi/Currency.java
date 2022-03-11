@@ -1,9 +1,9 @@
 package com.example.bankaccountbalancerestapi;
 
-public interface Currency {
+public enum Currency {
 
-    String EURO = "EUR";
-    String USD = "USD";
-    String YEN = "JPY";
-    String POUND = "GBP";
+    EUR,
+    USD,
+    JPY,
+    GBP
 }
