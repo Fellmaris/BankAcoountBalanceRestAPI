@@ -1,27 +1,22 @@
 package com.example.bankaccountbalancerestapi.repository;
 
 import com.example.bankaccountbalancerestapi.Currency;
-import com.example.bankaccountbalancerestapi.entity.Account;
 import com.example.bankaccountbalancerestapi.entity.Transaction;
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.opencsv.CSVReader;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 @Repository
 public class AccountRepository {
-    private List<Account> accounts =  new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
     private final String path = "accounts.csv";
 
     public AccountRepository() {
@@ -30,15 +25,17 @@ public class AccountRepository {
             if (!file.exists()) {
                 file.createNewFile();
             }
-            CSVReader csvReader = new CSVReader(Files.newBufferedReader(Paths.get(path)));
-            List<Account> accounts = new ArrayList<>();
-            String[] nextRecord;
-            while ((nextRecord = csvReader.readNext()) != null) {
-                MappingIterator<Transaction> transactionIterrator = new CsvMapper().readerWithSchemaFor(Transaction.class).readValues(nextRecord[4]);
-                Account account = new Account(UUID.fromString(nextRecord[0]), nextRecord[1], Double.parseDouble(nextRecord[2]), Currency.valueOf(nextRecord[3]), transactionIterrator.readAll());
-                accounts.add(account);
-            }
-            this.accounts = accounts;
+
+            //Only to create default transactions (Delete after first run)
+            LocalDateTime time = LocalDateTime.now();
+            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4b"), "Arturas", 20.22, Currency.EUR, time, "Tadas", "Pleasure doing buisness with you", 13.05, Currency.EUR));
+            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4c"), "Dainius", 200.22, Currency.GBP, time, "Pranas", "Pleasure doing buisness with you 2", 13.27, Currency.GBP));
+
+            CSVReader reader = new CSVReader(new FileReader(file));
+            List<String[]> transactionsFromFile = reader.readAll();
+            transactionsFromFile.forEach(i -> {
+                transactions.add(new Transaction(UUID.fromString(i[0]), i[1], Double.parseDouble(i[2]), Currency.valueOf(i[3].trim()), LocalDateTime.parse(i[4]), i[5], i[6], Double.parseDouble(i[7]), Currency.valueOf(i[8].trim())));
+            });
 
         } catch (IOException e) {
             System.out.println(e);
@@ -47,11 +44,10 @@ public class AccountRepository {
 
     public void closeUp() {
         try {
-            LocalDateTime time = LocalDateTime.now();
-            accounts.add(new Account("Arturas", 20.22, Currency.EUR, Arrays.asList(new Transaction("Arturas", 20.22, Currency.EUR, new ArrayList<Transaction>(),  time, "Tadas", "Pleasure doing buisness with you", 13.05, Currency.EUR))));
+
             File csvFile = new File(path);
             PrintWriter out = new PrintWriter(csvFile);
-            accounts.forEach(i -> {out.printf("%s, %s, %f, %s, %s\n", i.getAccountNumber(), i.getOwner(), i.getBalance(), i.getCurrency(), i.getTransactions());});
+            transactions.forEach(i -> {out.printf("%s,%s,%f,%s,%s,%s,%s,%f,%s\n", i.getAccountNumber(), i.getOwner(), i.getBalance(), i.getCurrency(), i.getOperationTime(), i.getBeneficiary(), i.getComment(), i.getAmount(), i.getTransCurrency());});
             out.close();
 
 

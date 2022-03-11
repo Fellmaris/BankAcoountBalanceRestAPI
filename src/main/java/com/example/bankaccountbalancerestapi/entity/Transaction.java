@@ -1,24 +1,39 @@
 package com.example.bankaccountbalancerestapi.entity;
 
 import com.example.bankaccountbalancerestapi.Currency;
+import com.opencsv.bean.CsvBindByName;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class Transaction extends Account{
 
+    @CsvBindByName
     LocalDateTime operationTime;
+    @CsvBindByName
     String beneficiary;
+    @CsvBindByName
     String comment;
+    @CsvBindByName
     double amount;
-    Currency currency;
+    @CsvBindByName
+    Currency transCurrency;
 
-    public Transaction(String owner, double balance, Currency currency, List<Transaction> transactions, LocalDateTime operationTime, String beneficiary, String comment, double amount, Currency currency1) {
-        super(owner, balance, currency, transactions);
+    public Transaction(UUID accountNumber, String owner, double balance, Currency currency, LocalDateTime operationTime, String beneficiary, String comment, double amount, Currency transCurrency) {
+        super(accountNumber, owner, balance, currency);
+        this.operationTime = operationTime;
+        this.beneficiary = beneficiary;
+        this.comment = comment;
+        this.amount = amount;
+        this.transCurrency = transCurrency;
+    }
+
+    public Transaction(String owner, double balance, Currency currency, LocalDateTime operationTime, String beneficiary, String comment, double amount, Currency currency1) {
+        super(owner, balance, currency);
         this.operationTime = operationTime;
         this.beneficiary = beneficiary;
         this.comment = comment;
@@ -26,14 +41,9 @@ public class Transaction extends Account{
         this.currency = currency1;
     }
 
+
     @Override
     public String toString() {
-        return "Transaction{" +
-                "\noperationTime=" + operationTime +
-                "\n, beneficiary='" + beneficiary +
-                "\n, comment='" + comment +
-                "\n, amount=" + amount +
-                "\n, currency=" + currency +
-                "\n}";
+        return  accountNumber + ", " + owner + ", " +  balance + ", " +  currency + ", " + transaction + ", " + operationTime + ", " + beneficiary + ", " + comment + ", " + amount + ", " + currency;
     }
 }
