@@ -20,8 +20,16 @@ public class TransactionRepository {
     private List<Transaction> transactions = new ArrayList<>();
     private final String path = "accounts.csv";
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public List<Transaction> getTransactions(List<UUID> ids) {
+        List<Transaction> transactionsToGet = new ArrayList<>();
+        for (UUID uuid: ids) {
+            for (Transaction transaction:transactions) {
+                if (uuid.equals(transaction.getAccountNumber())){
+                    transactionsToGet.add(transaction);
+                }
+            }
+        }
+        return transactionsToGet;
     }
 
     public TransactionRepository() {
@@ -73,6 +81,15 @@ public class TransactionRepository {
         }).collect(Collectors.toList());
     }
 
-    public void createTransaction (Transaction transaction) {transactions.add(transaction);
-    closeUp();}
+    public void createTransactions (String transactionList) {
+        String transactionArray [] = transactionList.replaceAll("\r\n", ",").split(",", 0);
+
+        int index = -1;
+        for (int i = 0; i <= transactionArray.length-1; i += 9) {
+            Transaction transaction = new Transaction(UUID.fromString(transactionArray[index + 1].trim()), transactionArray[index + 2].trim(), Double.parseDouble(transactionArray[index + 3].trim()), Currency.valueOf(transactionArray[index + 4].trim()), LocalDateTime.parse(transactionArray[index + 5].trim()), transactionArray[index + 6].trim(), transactionArray[index + 7].trim(), Double.parseDouble(transactionArray[index + 8].trim()), Currency.valueOf(transactionArray[index + 9].trim()));
+            index += 9;
+            transactions.add(transaction);
+        }
+    closeUp();
+    }
 }

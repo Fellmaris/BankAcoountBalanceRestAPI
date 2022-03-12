@@ -20,8 +20,6 @@ public class Account {
     protected double balance;
     @CsvBindByName
     protected Currency currency;
-    @CsvBindByName
-    protected Transaction transaction;
 
     public Account(UUID accountNumber, String owner, double balance, Currency currency) {
         this.accountNumber = accountNumber;
@@ -42,6 +40,6 @@ public class Account {
 
     @Override
     public String toString() {
-        return  accountNumber + ", " + owner + ", " +  balance + ", " +  currency + ", " + transaction;
+        return  accountNumber + ", " + owner + ", " +  balance + ", " +  currency;
     }
 }

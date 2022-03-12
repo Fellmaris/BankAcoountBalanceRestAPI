@@ -46,6 +46,6 @@ public class Transaction extends Account{
 
     @Override
     public String toString() {
-        return  accountNumber + ", " + owner + ", " +  balance + ", " +  currency + ", " + transaction + ", " + operationTime + ", " + beneficiary + ", " + comment + ", " + amount + ", " + currency;
+        return  accountNumber + ", " + owner + ", " +  balance + ", " +  currency + ", " + operationTime + ", " + beneficiary + ", " + comment + ", " + amount + ", " + currency;
     }
 }
