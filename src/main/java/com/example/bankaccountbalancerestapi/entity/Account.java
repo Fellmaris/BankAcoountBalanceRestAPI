@@ -37,6 +37,9 @@ public class Account {
         this.currency = currency;
     }
 
+    public Account() {
+    }
+
     @Override
     public String toString() {
         return  accountNumber + ", " + owner + ", " +  balance + ", " +  currency + ", " + transaction;

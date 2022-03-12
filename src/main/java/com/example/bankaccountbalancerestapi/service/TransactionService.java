@@ -23,7 +23,7 @@ public class TransactionService {
     }
 
     public void createTransaction (Transaction transaction){
-        transactionRepository.getTransactions().add(transaction);
+        transactionRepository.createTransaction(transaction);
     }
 
     public List<Transaction> getTransactionsFromTo (UUID id, LocalDateTime from, LocalDateTime to){

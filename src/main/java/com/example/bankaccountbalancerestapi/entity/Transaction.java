@@ -41,6 +41,8 @@ public class Transaction extends Account{
         this.currency = currency1;
     }
 
+    public Transaction() {
+    }
 
     @Override
     public String toString() {

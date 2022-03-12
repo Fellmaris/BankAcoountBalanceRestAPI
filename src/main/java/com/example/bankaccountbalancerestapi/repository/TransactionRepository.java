@@ -32,15 +32,17 @@ public class TransactionRepository {
             }
 
             //Only to create default transactions (Delete after first run)
-            LocalDateTime time = LocalDateTime.now();
-            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4b"), "Arturas", 20.22, Currency.EUR, time, "Tadas", "Pleasure doing buisness with you", 13.05, Currency.EUR));
-            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4c"), "Dainius", 200.22, Currency.GBP, time, "Pranas", "Pleasure doing buisness with you 2", 13.27, Currency.GBP));
+//            LocalDateTime time = LocalDateTime.now();
+//            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4b"), "Arturas", 20.22, Currency.EUR, time, "Tadas", "Pleasure doing buisness with you", 13.05, Currency.EUR));
+//            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4c"), "Dainius", 200.22, Currency.GBP, time, "Pranas", "Pleasure doing buisness with you 2", 13.27, Currency.GBP));
 
             CSVReader reader = new CSVReader(new FileReader(file));
             List<String[]> transactionsFromFile = reader.readAll();
             transactionsFromFile.forEach(i -> {
                 transactions.add(new Transaction(UUID.fromString(i[0]), i[1], Double.parseDouble(i[2]), Currency.valueOf(i[3].trim()), LocalDateTime.parse(i[4]), i[5], i[6], Double.parseDouble(i[7]), Currency.valueOf(i[8].trim())));
             });
+
+            closeUp();
 
         } catch (IOException e) {
             System.out.println(e);
@@ -70,4 +72,7 @@ public class TransactionRepository {
             }
         }).collect(Collectors.toList());
     }
+
+    public void createTransaction (Transaction transaction) {transactions.add(transaction);
+    closeUp();}
 }
