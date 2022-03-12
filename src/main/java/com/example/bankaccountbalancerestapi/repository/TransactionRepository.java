@@ -13,13 +13,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
-public class AccountRepository {
+public class TransactionRepository {
     private List<Transaction> transactions = new ArrayList<>();
     private final String path = "accounts.csv";
 
-    public AccountRepository() {
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public TransactionRepository() {
         try {
             File file = new File(path);
             if (!file.exists()) {
@@ -54,5 +59,15 @@ public class AccountRepository {
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    public List<Transaction> getTrasactionsFromTo(UUID id, LocalDateTime from, LocalDateTime to) {
+        return transactions.stream().filter(i -> {
+            if(i.getAccountNumber().equals(id) && i.getOperationTime().isAfter(from) && i.getOperationTime().isBefore(to)){
+                return true;
+            } else {
+                return false;
+            }
+        }).collect(Collectors.toList());
     }
 }
