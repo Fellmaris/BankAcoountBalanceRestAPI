@@ -41,8 +41,8 @@ public class TransactionRepository {
 
             //Only to create default transactions (Delete after first run)
 //            LocalDateTime time = LocalDateTime.now();
-//            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4b"), "Arturas", 20.22, Currency.EUR, time, "Tadas", "Pleasure doing buisness with you", 13.05, Currency.EUR));
-//            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4c"), "Dainius", 200.22, Currency.GBP, time, "Pranas", "Pleasure doing buisness with you 2", 13.27, Currency.GBP));
+//            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4b"), "Arturas", 20.22123, Currency.EUR, time, "Tadas", "Pleasure doing buisness with you", 13.05123, Currency.EUR));
+//            transactions.add(new Transaction(UUID.fromString("7f04c6cc-b08c-4e9e-8ce3-a3a30bc9ff4c"), "Dainius", 200.22123, Currency.GBP, time, "Pranas", "Pleasure doing buisness with you 2", 13.27123, Currency.GBP));
 
             CSVReader reader = new CSVReader(new FileReader(file));
             List<String[]> transactionsFromFile = reader.readAll();
