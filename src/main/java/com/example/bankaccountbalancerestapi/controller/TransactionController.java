@@ -5,7 +5,7 @@ import static com.example.bankaccountbalancerestapi.ApiPath.*;
 import com.example.bankaccountbalancerestapi.logic.BalanceCounter;
 import com.example.bankaccountbalancerestapi.logic.TransactionDateComparer;
 import com.example.bankaccountbalancerestapi.entity.Transaction;
-import com.example.bankaccountbalancerestapi.resourceToCsv.ResourceToCSV;
+import com.example.bankaccountbalancerestapi.logic.ResourceToCSV;
 import com.example.bankaccountbalancerestapi.service.TransactionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

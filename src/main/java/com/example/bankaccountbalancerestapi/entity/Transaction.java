@@ -33,17 +33,6 @@ public class Transaction extends Account{
         this.transCurrency = transCurrency;
     }
 
-    public Transaction(String owner, double balance, Currency currency, LocalDateTime operationTime, String beneficiary, String comment, double amount, Currency currency1) {
-        super(owner, balance, currency);
-        this.operationTime = operationTime;
-        this.beneficiary = beneficiary;
-        this.comment = comment;
-        this.amount = amount;
-        this.currency = currency1;
-    }
-
-    public Transaction() {
-    }
 
     @Override
     public String toString() {

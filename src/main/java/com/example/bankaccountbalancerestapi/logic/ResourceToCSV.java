@@ -1,4 +1,4 @@
-package com.example.bankaccountbalancerestapi.resourceToCsv;
+package com.example.bankaccountbalancerestapi.logic;
 
 import org.springframework.core.io.Resource;
 import org.springframework.util.FileCopyUtils;
